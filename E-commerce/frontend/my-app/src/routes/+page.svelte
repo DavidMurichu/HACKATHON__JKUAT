@@ -1,5 +1,104 @@
 <script>
+     import { onMount } from 'svelte';
     import '@fortawesome/fontawesome-free/css/all.min.css';
+
+    import Chart from 'chart.js/auto';
+  
+  let chart1, chart2;
+  
+  // Example data for charts
+  let businessTrendData = [3000, 4500, 5000, 6500, 8000, 10000]; // Business trend data
+  let locationTrendData = [4000, 6000, 8000, 5000, 7000]; // Location data
+  
+  // Example labels
+  let timeLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']; // Monthly labels for business trend
+  let locationLabels = ['Location 1', 'Location 2', 'Location 3', 'Location 4', 'Location 5']; // Location labels
+  
+  // Function to initialize the charts after the DOM is loaded
+  const createCharts = () => {
+    // Business trend chart (Futuristic Line Chart)
+    const ctx1 = document.getElementById('chart1').getContext('2d');
+    chart1 = new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: timeLabels,
+        datasets: [{
+          label: 'Business Trend',
+          data: businessTrendData,
+          backgroundColor: 'rgba(0, 255, 255, 0.1)', // Light cyan fill
+          borderColor: '#00FFFF', // Cyan border
+          borderWidth: 2,
+          pointRadius: 5,
+          pointBackgroundColor: '#ff7e00' // Orange points
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              color: '#00FFFF'
+            }
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Smooth curves
+          }
+        }
+      }
+    });
+
+    // Location performance chart
+    const ctx2 = document.getElementById('chart2').getContext('2d');
+    chart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: locationLabels,
+        datasets: [{
+          label: 'Location Performance',
+          data: locationTrendData,
+          backgroundColor: 'rgba(255, 69, 0, 0.1)', // Light red fill
+          borderColor: '#FF4500', // Red border
+          borderWidth: 2,
+          pointRadius: 5,
+          pointBackgroundColor: '#ff4500' // Red points
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              color: '#FF4500'
+            }
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Smooth curves
+          }
+        }
+      }
+    });
+  };
+
+  // Trigger chart creation when the component mounts
+  onMount(() => {
+    createCharts();
+  });
+
+
   
     // State variables for toggling navigation and progress bars in mobile view
     let showNav = false;
@@ -102,12 +201,25 @@
     }
   
     .graph {
-      height: 200px;
-      background-color: #fafafa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    height: 400px;
+    background-color: #1c1e26;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .graph h2 {
+    color: #00FFFF; /* Cyan futuristic font */
+  }
+
+  canvas {
+    margin: 20px 0;
+    max-width: 100%;
+  }
   
     /* Container for progress bars */
     .progress-bars-container {
@@ -122,16 +234,7 @@
       align-items: center;
     }
   
-    h1 {
-      text-align: center;
-      margin: 0;
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #333;
-      z-index: 1;
-    }
+    
   
     .progress-bars {
       text-align: center;
@@ -251,6 +354,7 @@
     <!-- Navigation Section -->
     <div class="nav {showNav ? 'show' : ''}">
       <button class="hamburger" on:click={() => showNav = !showNav}>☰ Menu</button>
+      <h1>ROckBizz</h1>
       <ul>
         <li>
           <a href="#">
@@ -293,14 +397,21 @@
       </div>
   
       <!-- Graph Section -->
-      <div class="graph">
-        <h2>Graph Placeholder</h2>
-      </div>
+    <div class="graph">
+  <h2>Performance Analyzer</h2>
+  
+  <!-- Business Trend Chart -->
+  <canvas id="chart1" width="400" height="200"></canvas>
+  
+  <!-- Location Performance Chart -->
+  <canvas id="chart2" width="400" height="200"></canvas>
+  </div>
+
     </div>
   
     <!-- Progress Bars Section -->
     <div class="progress-bars-container">
-      <h1>Performance Analyzer</h1>
+      <h4 style="font-size: larger;"> Location Analyzer</h4>
       <button class="show-progress-bars-btn" on:click={() => showProgressBars = !showProgressBars}>
         {showProgressBars ? 'Hide Progress Bars' : 'Show Progress Bars'}
       </button>
