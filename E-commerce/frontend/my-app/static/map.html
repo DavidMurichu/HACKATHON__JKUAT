@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>
+        L_NO_TOUCH = false;
+        L_DISABLE_3D = false;
+    </script>
+
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+    <!-- Include Leaflet CSS and JS -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+
+    <!-- Include Leaflet Awesome Markers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+
+    <!-- Include Leaflet Control Geocoder CSS and JS for search functionality -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        #map_b2952eb7695c8bec6bef11eae29672af {
+            position: relative;
+            width: 100.0%;
+            height: 100.0%;
+            left: 0.0%;
+            top: 0.0%;
+        }
+        .leaflet-container { font-size: 1rem; }
+        /* Remove the default attribution control */
+        .leaflet-control-attribution {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="folium-map" id="map_b2952eb7695c8bec6bef11eae29672af"></div>
+
+    <script>
+        // Create the map object and center it at [0, 0] with zoom level 2
+        var map_b2952eb7695c8bec6bef11eae29672af = L.map(
+            "map_b2952eb7695c8bec6bef11eae29672af",
+            {
+                center: [0.0, 0.0],
+                crs: L.CRS.EPSG3857,
+                zoom: 2,
+                zoomControl: true,
+                preferCanvas: false,
+                attributionControl: false // Disable default attribution control
+            }
+        );
+
+        // Add a custom tile layer without any attribution
+        var tile_layer_49e28da8e6345ce07ddfa8bc793c3dda = L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                attribution: '',  // Clear the attribution
+                detectRetina: false,
+                maxNativeZoom: 19,
+                maxZoom: 19,
+                minZoom: 0,
+                noWrap: false,
+                opacity: 1,
+                subdomains: 'abc',
+                tms: false
+            }
+        );
+
+        tile_layer_49e28da8e6345ce07ddfa8bc793c3dda.addTo(map_b2952eb7695c8bec6bef11eae29672af);
+
+        // Add a marker at the center of the map
+        L.marker([0, 0]).addTo(map_b2952eb7695c8bec6bef11eae29672af)
+          .bindPopup('Center of the World')
+          .openPopup();
+
+        // Add the search control (geocoder) to the map
+        L.Control.geocoder().addTo(map_b2952eb7695c8bec6bef11eae29672af);
+    </script>
+</body>
+</html>
